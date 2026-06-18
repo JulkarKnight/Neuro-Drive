@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.6)  18 JUN 2026 15:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.6)  18 JUN 2026 18:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -478,49 +478,88 @@ Underfull \hbox (badness 2073) in paragraph at lines 34--36
 ce Sys-tems
  []
 
+<ESP.png, id=63, 1003.75pt x 501.875pt>
+File: ESP.png Graphic file (type png)
+<use ESP.png>
+Package pdftex.def Info: ESP.png  used on input line 50.
+(pdftex.def)             Requested size: 126.0pt x 62.99458pt.
+<ESPCAM.png, id=65, 1505.625pt x 1505.625pt>
+File: ESPCAM.png Graphic file (type png)
+<use ESPCAM.png>
+Package pdftex.def Info: ESPCAM.png  used on input line 58.
+(pdftex.def)             Requested size: 126.0pt x 125.98918pt.
+<max30100-pulse-oximeter.png, id=66, 803.0pt x 803.0pt>
+File: max30100-pulse-oximeter.png Graphic file (type png)
+<use max30100-pulse-oximeter.png>
+Package pdftex.def Info: max30100-pulse-oximeter.png  used on input line 66.
+(pdftex.def)             Requested size: 126.0pt x 125.9953pt.
 [1{C:/Users/julka/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{D:/Apps/LaT
 ex/fonts/enc/dvips/base/8r.enc}
 
 
-]
-Underfull \hbox (badness 4266) in paragraph at lines 81--81
+ <./ESP.png>]
+<sim900a.png, id=78, 526.96875pt x 472.01344pt>
+File: sim900a.png Graphic file (type png)
+<use sim900a.png>
+Package pdftex.def Info: sim900a.png  used on input line 74.
+(pdftex.def)             Requested size: 126.0pt x 112.8606pt.
+<GPS.png, id=79, 1003.75pt x 1003.75pt>
+File: GPS.png Graphic file (type png)
+<use GPS.png>
+Package pdftex.def Info: GPS.png  used on input line 82.
+(pdftex.def)             Requested size: 126.0pt x 125.98918pt.
+<shaftless-vibration-motor.png, id=80, 803.0pt x 803.0pt>
+File: shaftless-vibration-motor.png Graphic file (type png)
+<use shaftless-vibration-motor.png>
+Package pdftex.def Info: shaftless-vibration-motor.png  used on input line 90.
+(pdftex.def)             Requested size: 100.79846pt x 100.79134pt.
+<active-buzzer-module-robotics-bangladesh.png, id=81, 803.0pt x 803.0pt>
+File: active-buzzer-module-robotics-bangladesh.png Graphic file (type png)
+<use active-buzzer-module-robotics-bangladesh.png>
+Package pdftex.def Info: active-buzzer-module-robotics-bangladesh.png  used on 
+input line 90.
+(pdftex.def)             Requested size: 100.79846pt x 100.79134pt.
+
+Underfull \hbox (badness 4266) in paragraph at lines 111--111
 []\OT1/ptm/m/n/8 Haptic feed-back (Switched via
  []
 
 
-Overfull \hbox (10.79846pt too wide) in paragraph at lines 70--85
+Overfull \hbox (10.79846pt too wide) in paragraph at lines 100--115
  [] 
  []
 
-
-Underfull \hbox (badness 6300) in paragraph at lines 91--92
+[2 <./ESPCAM.png> <./max30100-pulse-oximeter.png> <./sim900a.png> <./GPS.png> <
+./shaftless-vibration-motor.png> <./active-buzzer-module-robotics-bangladesh.pn
+g>]
+Underfull \hbox (badness 6300) in paragraph at lines 121--122
 []\OT1/ptm/b/n/10 Authentic Bio-met-ric Node: \OT1/ptm/m/n/10 Equipped with the
 
  []
 
 LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
-04.
+34.
 (D:\Apps\LaTex\tex/latex/psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Underfull \hbox (badness 2418) in paragraph at lines 120--121
+Underfull \hbox (badness 2418) in paragraph at lines 150--151
 \OT1/ptm/m/n/10 the ve-hi-cle's on-board com-puter to safely and au-
  []
 
-[2]
-Underfull \hbox (badness 2150) in paragraph at lines 126--127
+
+Underfull \hbox (badness 2150) in paragraph at lines 156--157
 []\OT1/ptm/m/n/8 OpenCV Python Doc-u-men-ta-tion. [On-line]. Avail-able: []$htt
 ps : / / docs .
  []
 
 
-Underfull \hbox (badness 7291) in paragraph at lines 127--128
+Underfull \hbox (badness 7291) in paragraph at lines 157--158
 []\OT1/ptm/m/n/8 FreeRTOS for ESP32. Espres-sif Sys-tems. [On-line]. Avail-able
 :
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 127--128
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
 []$\OT1/ptm/m/n/8 https : / / docs . espressif . com / projects / esp-[]idf / e
 n / latest / esp32 / api-[]reference /
  []
@@ -536,32 +575,34 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[3
-
-] (Report.aux)
+[3] (Report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `Report.out' has not changed.
 (rerunfilecheck)             Checksum: BF39483BFA6DBD0C71F4217A55FCC253;2640.
  ) 
 Here is how much of TeX's memory you used:
- 11409 strings out of 467871
- 173327 string characters out of 5433288
- 609783 words of memory out of 5000000
- 40114 multiletter control sequences out of 15000+600000
+ 11472 strings out of 467871
+ 174791 string characters out of 5433288
+ 608783 words of memory out of 5000000
+ 40171 multiletter control sequences out of 15000+600000
  672345 words of font info for 130 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,79p,1312b,528s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,79p,1312b,555s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <D:/Apps/LaTex/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/Apps/LaTex/fonts/
 type1/public/amsfonts/cm/cmsy8.pfb><D:/Apps/LaTex/fonts/type1/urw/courier/ucrr8
 a.pfb><D:/Apps/LaTex/fonts/type1/urw/times/utmb8a.pfb><D:/Apps/LaTex/fonts/type
 1/urw/times/utmbi8a.pfb><D:/Apps/LaTex/fonts/type1/urw/times/utmr8a.pfb><D:/App
 s/LaTex/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Report.pdf (3 pages, 116199 bytes).
+Output written on Report.pdf (3 pages, 1156631 bytes).
 PDF statistics:
- 142 PDF objects out of 1000 (max. 8388607)
- 30 named destinations out of 1000 (max. 500000)
- 121 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 158 PDF objects out of 1000 (max. 8388607)
+ 36 named destinations out of 1000 (max. 500000)
+ 156 words of extra memory for PDF output out of 10000 (max. 10000000)
 

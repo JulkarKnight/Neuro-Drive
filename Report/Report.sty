@@ -46,21 +46,51 @@ In emergencies, the system relies on a SIM900A GSM module to send an automated S
 Following is a list of the project's key components. We illustrate the critical elements with a description of their role and specific features within the system, alongside their pin mapping for clarity.
 
 \subsection{ESP32 Microcontroller}
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.5\linewidth]{ESP.png}}
+\caption{ESP32 Microcontroller}
+\label{fig:esp32}
+\end{figure}
 The standard ESP32 acts as the main processing unit of the smart node. Leveraging FreeRTOS, it utilizes both processing cores to coordinate data collection from the GPS and biometric sensors, processes incoming HTTP alarm triggers, and controls output components such as the vibration motor and OLED display.
 
 \subsection{ESP32-CAM Module}
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.5\linewidth]{ESPCAM.png}}
+\caption{ESP32-CAM Module}
+\label{fig:esp32cam}
+\end{figure}
 The ESP32-CAM acts as the dedicated vision node. It captures high-framerate wireless video of the driver’s face and streams it over a local network to a Python/OpenCV script, offloading heavy machine learning tasks from the main microcontroller.
 
 \subsection{MAX30102 Biometric Sensor}
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.5\linewidth]{max30100-pulse-oximeter.png}}
+\caption{MAX30102 Biometric Sensor}
+\label{fig:max30102}
+\end{figure}
 This medical-grade optical sensor tracks the driver’s Beats Per Minute (BPM) and peripheral oxygen saturation (SpO2). It uses infrared and red LEDs to measure blood flow, feeding live health data to the OLED and the SOS SMS payload.
 
 \subsection{SIM900A GSM Module}
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.5\linewidth]{sim900a.png}}
+\caption{SIM900A GSM Module}
+\label{fig:sim900a}
+\end{figure}
 The SIM900A enables reliable cellular communication. During an SOS event, it transmits the GPS coordinates, Zone name, and health vitals to predefined contacts. A 3-minute software cooldown logic is applied to prevent cellular spamming.
 
 \subsection{NEO-6M GPS Module}
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.5\linewidth]{GPS.png}}
+\caption{NEO-6M GPS Module}
+\label{fig:gps}
+\end{figure}
 The NEO-6M module provides real-time, offline satellite geographic location. It supplies highly accurate Latitude and Longitude data formulated into a clickable Google Maps link for emergency responders.
 
 \subsection{DC Vibration Motor \& Buzzer}
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.4\linewidth]{shaftless-vibration-motor.png} \quad \includegraphics[width=0.4\linewidth]{active-buzzer-module-robotics-bangladesh.png}}
+\caption{DC Vibration Motor \& Active Buzzer}
+\label{fig:motor_buzzer}
+\end{figure}
 The vibration motor serves as a haptic feedback mechanism to physically wake the driver. It is driven by a 2N2222 NPN transistor acting as a switch and is powered by an isolated 5V Sony Li-ion battery pack to prevent voltage drops on the main ESP32 board.
 
 \begin{table}[htbp]
