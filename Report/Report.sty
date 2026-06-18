@@ -1,0 +1,133 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+% Standard Packages
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Neuro-Drive: Vision-Based Driver Fatigue \& GPS Rescue Node\\
+\thanks{This project was developed for the Electronics Laboratory (EEE 2124) course.}
+}
+
+\author{\IEEEauthorblockN{Julkar Naim Shishir\textsuperscript{1}, Md. Samiur Rahman Sameer\textsuperscript{2}, Md Siam Rahman\textsuperscript{3}, \\ Anika Islam\textsuperscript{4}, Tasnim Rafiq Rajani\textsuperscript{5}}
+\IEEEauthorblockA{\textit{Dept. of Computer Science and Engineering} \\
+\textit{United International University}\\
+Dhaka, Bangladesh \\
+Group-4 \\
+ID: 0112330045\textsuperscript{1}, 0112330105\textsuperscript{2}, 0112331150\textsuperscript{3}, 0112330512\textsuperscript{4}, 0112330613\textsuperscript{5}}
+}
+
+\maketitle
+
+\begin{abstract}
+This report details the design and development of Neuro-Drive, an advanced Internet of Things (IoT)-based active safety system designed to detect driver drowsiness and automate emergency rescue protocols. The system utilizes a dual-node architecture consisting of an ESP32-CAM and a primary ESP32 microcontroller. The vision node wirelessly streams real-time video to a local Python environment, which uses OpenCV to calculate Eye Aspect Ratios (EAR) for lag-free fatigue detection. The core processing node handles continuous biometric tracking (Heart Rate and SpO2) using a MAX30102 sensor. Upon detecting driver fatigue, the system initiates a multi-stage physical alert using a 0.96-inch OLED, an active buzzer, and a DC vibration motor powered by an isolated 5V Li-ion battery. Simultaneously, utilizing FreeRTOS dual-core processing, the system performs background reverse-geocoding via Wi-Fi and retrieves exact satellite coordinates via a NEO-6M GPS module. A SIM900A GSM module is then triggered to dispatch an automated SOS SMS containing the driver's vitals, a localized Zone name, and a Google Maps link to predefined authorities. This project demonstrates a highly cost-effective, edge-computed Advanced Driver Assistance System (ADAS) that enhances road safety and rescue efficiency.
+\end{abstract}
+
+\begin{IEEEkeywords}
+IoT, Advanced Driver Assistance Systems (ADAS), ESP32, ESP32-CAM, FreeRTOS, MAX30102, OpenCV, NEO-6M GPS, SIM900A GSM, Haptic Feedback, Biometric Monitoring.
+\end{IEEEkeywords}
+
+\section{Project Overview}
+Driver drowsiness is a critical factor in global highway fatalities. While commercial fatigue detection systems exist, they are often prohibitively expensive and limited to high-end vehicles. This project introduces Neuro-Drive, an affordable, edge-computed assistive node developed to support driver safety through vision-based monitoring, physical haptic feedback, and automated emergency alerts.
+
+The system relies on an ESP32-CAM to capture the driver's face, passing the stream to a Python script that analyzes facial landmarks. If prolonged eye closure is detected, an HTTP GET request triggers the primary ESP32. The main ESP32 immediately activates a synchronized alarm: an OLED visual warning, an active buzzer, and an isolated DC vibration motor for intense haptic feedback. 
+
+In emergencies, the system relies on a SIM900A GSM module to send an automated SOS message. To optimize the data, the ESP32 operates on a FreeRTOS dual-core architecture. Core 1 handles the real-time biometric tracking (via MAX30102) and hardware interrupts, while Core 0 runs background HTTP requests to a reverse-geocoding API to fetch the local ``Zone'' name. By combining computer vision, real-time biometric sensing, and IoT communication, Neuro-Drive offers a robust safety net for logistics and heavy machinery operators.
+
+\section{Component List}
+Following is a list of the project's key components. We illustrate the critical elements with a description of their role and specific features within the system, alongside their pin mapping for clarity.
+
+\subsection{ESP32 Microcontroller}
+The standard ESP32 acts as the main processing unit of the smart node. Leveraging FreeRTOS, it utilizes both processing cores to coordinate data collection from the GPS and biometric sensors, processes incoming HTTP alarm triggers, and controls output components such as the vibration motor and OLED display.
+
+\subsection{ESP32-CAM Module}
+The ESP32-CAM acts as the dedicated vision node. It captures high-framerate wireless video of the driver’s face and streams it over a local network to a Python/OpenCV script, offloading heavy machine learning tasks from the main microcontroller.
+
+\subsection{MAX30102 Biometric Sensor}
+This medical-grade optical sensor tracks the driver’s Beats Per Minute (BPM) and peripheral oxygen saturation (SpO2). It uses infrared and red LEDs to measure blood flow, feeding live health data to the OLED and the SOS SMS payload.
+
+\subsection{SIM900A GSM Module}
+The SIM900A enables reliable cellular communication. During an SOS event, it transmits the GPS coordinates, Zone name, and health vitals to predefined contacts. A 3-minute software cooldown logic is applied to prevent cellular spamming.
+
+\subsection{NEO-6M GPS Module}
+The NEO-6M module provides real-time, offline satellite geographic location. It supplies highly accurate Latitude and Longitude data formulated into a clickable Google Maps link for emergency responders.
+
+\subsection{DC Vibration Motor \& Buzzer}
+The vibration motor serves as a haptic feedback mechanism to physically wake the driver. It is driven by a 2N2222 NPN transistor acting as a switch and is powered by an isolated 5V Sony Li-ion battery pack to prevent voltage drops on the main ESP32 board.
+
+\begin{table}[htbp]
+\caption{System Component List and Pin Mapping}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{0.25\linewidth} p{0.45\linewidth} p{0.2\linewidth}}
+\toprule
+\textbf{Component} & \textbf{Function} & \textbf{Pin Mapping} \\
+\midrule
+\textbf{ESP32} & Main processing node (Dual-Core FreeRTOS) & Core 0 \& 1 \\
+\textbf{ESP32-CAM} & Wireless video streaming node & Wi-Fi Node \\
+\textbf{MAX30102} & Detects live BPM and SpO2 levels & SDA $\rightarrow$ 21 \newline SCL $\rightarrow$ 22 \\
+\textbf{NEO-6M GPS} & Tracks real-time satellite location & TX $\rightarrow$ 16 \newline RX $\rightarrow$ 17 \\
+\textbf{SIM900A} & Sends SOS SMS with location and vitals & RX $\rightarrow$ 26 \newline TX $\rightarrow$ 27 \\
+\textbf{0.96" OLED} & Visual UI, ECG Waveform, Warnings & SDA $\rightarrow$ 21 \newline SCL $\rightarrow$ 22 \\
+\textbf{Active Buzzer} & Auditory alert mechanism & GPIO 13 \\
+\textbf{Vibration Motor} & Haptic feedback (Switched via 2N2222) & Base $\rightarrow$ 25 \\
+\bottomrule
+\end{tabular}
+\label{tab:components}
+\end{center}
+\end{table}
+
+\section{Features}
+\begin{enumerate}
+    \item \textbf{Vision-Based Fatigue Detection:} The system utilizes OpenCV and Dlib facial landmark mapping to calculate the Eye Aspect Ratio (EAR) in real-time, triggering alarms instantly upon detecting microsleeps.
+    \item \textbf{Authentic Biometric Node:} Equipped with the MAX30102 sensor, the node continuously monitors physiological metrics, allowing rescue teams to assess the driver's health state remotely.
+    \item \textbf{Automated SOS Emergency System:} When fatigue is detected, the system automatically sends a compiled SOS message via the SIM900A GSM module to predefined contacts, protected by a 3-minute anti-spam cooldown.
+    \item \textbf{Real-Time Location \& Reverse Geocoding:} The system combines hardware NEO-6M satellite tracking with FreeRTOS background API calls to provide both exact coordinates and readable geographical ``Zone'' names.
+    \item \textbf{Multi-Stage Physical Alerts:} To maximize the chances of waking the driver, the system simultaneously deploys visual (OLED), auditory (Buzzer), and haptic (Vibration Motor) feedback.
+\end{enumerate}
+
+\section{System Functionality and Control Logic}
+The system is organized into two core functional domains, distributed across the dual-core architecture of the ESP32 to ensure lag-free operation.
+
+\subsection{Assistive Alert and Biometric Control (Core 1)}
+The ESP32's primary core serves as the central unit for environmental sensing and physical alerts.
+\begin{itemize}
+    \item \textbf{Biometrics \& UI:} The loop continuously reads the infrared value from the MAX30102. If a finger is detected, it calculates the delta between beats to render BPM and SpO2 onto the dynamic OLED interface.
+    \item \textbf{Haptic \& Audio Feedback:} Upon receiving the HTTP \texttt{/alarm} trigger, Core 1 executes a synchronous loop. It writes \texttt{HIGH} to GPIO 13 (Buzzer) and GPIO 25 (Vibration Transistor Base) for 150\,ms intervals, creating an intense, pulsed waking sequence.
+\end{itemize}
+
+\subsection{Background Networking and SOS Dispatch (Core 0)}
+To avoid interrupting the critical biometric and alert loops, networking tasks are pinned strictly to Core 0 using the \texttt{xTaskCreatePinnedToCore} FreeRTOS function.
+\begin{itemize}
+    \item \textbf{Reverse Geocoding:} Core 0 wakes every 15 seconds to execute an HTTP GET request to the BigDataCloud API, parsing JSON payloads to extract the local city/locality string.
+    \item \textbf{Emergency Dispatch:} When triggered by Core 1, the SIM900A transmits AT commands to dispatch the cellular payload containing the Biometrics, the Zone string, and the Google Maps link formulated from the NEO-6M's NMEA sentences.
+\end{itemize}
+
+\section{Conclusion and Future Work}
+Neuro-Drive successfully integrates wireless computer vision, biometric sensing, and IoT communication to assist and protect drivers in real-time. By combining the ESP32 microcontroller with a vibration feedback circuit, GPS-based location tracking, and an SOS alert system, the device ensures a highly responsive safety layer. Overall, the project demonstrates how affordable and compact electronic components can be integrated using advanced software techniques like FreeRTOS to create a life-saving vehicular node. 
+
+\subsection{Future Possibilities}
+In the future, Neuro-Drive can be further enhanced with advanced technologies such as:
+\begin{itemize}
+    \item \textbf{Vehicle CAN Bus Integration:} Direct interfacing with the vehicle's onboard computer to safely and autonomously decelerate the engine if the driver is unresponsive.
+    \item \textbf{Mobile Application \& IoT Dashboard:} Creating a companion web dashboard for logistics fleet managers to remotely track the real-time location, fatigue events, and vitals of all active drivers in their network.
+    \item \textbf{AI-Based Emotion Recognition:} Expanding the Python vision model to detect yawning, distraction, or distress markers alongside standard drowsiness.
+\end{itemize}
+
+\begin{thebibliography}{00}
+\bibitem{b1} OpenCV Python Documentation. [Online]. Available: \url{https://docs.opencv.org/}
+\bibitem{b2} FreeRTOS for ESP32. Espressif Systems. [Online]. Available: \url{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos.html}
+\bibitem{b3} TinyGPSPlus Library. [Online]. Available: \url{https://github.com/mikalhart/TinyGPSPlus}
+\bibitem{b4} SparkFun MAX3010x Sensor Library. [Online]. Available: \url{https://github.com/sparkfun/SparkFun_MAX3010x_Sensor_Library}
+\bibitem{b5} Adafruit GFX and SSD1306 Libraries. [Online]. Available: \url{https://github.com/adafruit/Adafruit_SSD1306}
+\end{thebibliography}
+
+\end{document}
