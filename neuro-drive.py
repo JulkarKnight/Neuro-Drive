@@ -55,7 +55,7 @@ def trigger_remote_alarm():
     except Exception as e:
         print(f"[ERROR] Could not connect: {e}")
 
-EYE_AR_THRESH = 0.25
+EYE_AR_THRESH = 0.23
 EYE_AR_CONSEC_FRAMES = 45
 COUNTER = 0
 ALARM_ON = False
@@ -69,7 +69,7 @@ predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
 # ESP32-CAM URL
 # WARNING: Change this IP to match your ESP32-CAM's IP address
-URL = "http://192.168.106.66:81/stream"
+URL = "http://192.168.89.66:81/stream"
 
 print("[INFO] Starting Threaded Video Stream...")
 vs = VideoStream(URL).start()
@@ -109,7 +109,7 @@ while True:
                     print("[ALERT] DROWSINESS DETECTED!")
                     
                     
-                    #winsound.Beep(2500, 500)
+                    winsound.Beep(2500, 500)
                     
                 
                     threading.Thread(target=trigger_remote_alarm).start()

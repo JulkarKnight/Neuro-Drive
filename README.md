@@ -34,3 +34,13 @@ You can download it from [here](http://dlib.net/files/shape_predictor_68_face_la
    ```bash
    python neuro-drive.py
    ```
+
+## Limitations
+- The main limitation of the current setup is that the ESP32-CAM only provides the video stream, and a computer is still required to process it.
+
+## Future Work
+- Move processing to the edge directly on a capable microcontroller to eliminate the need for a separate computer.
+- Further miniaturize the components for a standalone wearable or dashboard device.
+
+## Demo
+[![YouTube Video](https://img.shields.io/badge/YouTube-Watch%20Demo-red?style=for-the-badge&logo=youtube)](https://youtu.be/1CBim2Vd7dY?si=t47i2KtxFFydYJmp)
