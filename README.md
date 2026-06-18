@@ -24,7 +24,7 @@ pip install -r requirements.txt
 ### 3. Model File
 The Python script requires the `shape_predictor_68_face_landmarks.dat` model file from dlib. 
 Due to its large size (~100MB), it is not included in this repository. 
-You can download it from [here](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2), extract it, and place it in the same directory as `neuro-drive.py`.
+You can download it from [here](https://github.com/davisking/dlib-models/raw/master/shape_predictor_68_face_landmarks.dat.bz2), extract it, and place it in the same directory as `neuro-drive.py`.
 
 ### 4. Running the System
 1. Power on your ESP32-CAM and Alarm board.
@@ -44,3 +44,6 @@ You can download it from [here](http://dlib.net/files/shape_predictor_68_face_la
 
 ## Demo
 [![YouTube Video](https://img.shields.io/badge/YouTube-Watch%20Demo-red?style=for-the-badge&logo=youtube)](https://youtu.be/1CBim2Vd7dY?si=t47i2KtxFFydYJmp)
+
+## GitHub Repository
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/JulkarKnight/Neuro-Drive)
